@@ -28,7 +28,6 @@ if __name__=="__main__":
     """ This code snipt is intended to do chat completion using gpt2
 
     gpt2 is an autoregresive LLM which means generate one token at a time
-    The LLM serving is made more efficient through KV-cashing    
     """
 
     model_name = "openai-community/gpt2"
