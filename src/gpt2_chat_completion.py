@@ -14,11 +14,11 @@ def gen_next_token(model, inputs):
     with torch.no_grad():
         # logits has the shape of batch_Size, num_tokens, model_output_Size
         # use_cash to use cashed past_key_values
-        outputs = model(**inputs, use_cache=True)
+        outputs = model(**inputs)
 
     # get the highest possible token index as next one
     next_token_id = outputs.logits[0, -1, :].argmax()
-    return next_token_id
+    return next_token_id, outputs.past_key_values
 
 
 if __name__=="__main__":
@@ -29,9 +29,9 @@ if __name__=="__main__":
     """
 
     start = time.time()
-    model_name = "openai-community/gpt2"
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
-    model = AutoModelForCausalLM.from_pretrained(model_name)
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    tokenizer = AutoTokenizer.from_pretrained("gpt2")
+    model = AutoModelForCausalLM.from_pretrained("gpt2").to(device)
 
     prompt = "A dog jumped over"
 
@@ -43,13 +43,14 @@ if __name__=="__main__":
     # MAGIC: 13 is the dot's token id stop when a full sentence is generated.
     # NOTE: 13 might need to be changed with other token id if model name is changed.
     while 13 not in inputs['input_ids'][-1].tolist(): 
-        next_token_id = gen_next_token(model, inputs)
+        next_token_id, past_key_values = gen_next_token(model, inputs)
 
         # append the token id as well as the attention mask to previous inputs
         inputs = {
-                  "input_ids" : torch.cat((inputs['input_ids'], next_token_id.reshape(1,1)), dim=1),
+                  "input_ids" : next_token_id.reshape((1, 1)),
                   "attention_mask" : torch.cat((inputs['attention_mask'], torch.tensor([[1]])), dim=1), 
-                 }
-
-    print(tokenizer.decode(inputs['input_ids'][-1]))
+                  "past_key_values": past_key_values,
+                 } 
+        prompt = prompt + tokenizer.decode(inputs['input_ids'][-1])
+    print(prompt)
     print(f'Time taken: {time.time() - start}')
