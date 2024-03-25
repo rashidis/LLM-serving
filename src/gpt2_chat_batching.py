@@ -25,7 +25,7 @@ def initialize(model_name="gpt2"):
     device = "cuda" if torch.cuda.is_available() else "cpu"
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForCausalLM.from_pretrained(model_name).to(device)
-    return set_padding(model, tokenizer)
+    return model, tokenizer
 
 def gen_next_token(model, inputs):
     """Given the tokenizer, model and prompt generates the next token
@@ -95,11 +95,10 @@ def batch_generate(model, tokenizer, prompts, max_token):
 
 
 if __name__=="__main__":
-    """ This code snipt is intended to do chat completion using gpt2
+    """This code snipt is intended to do chat completion using gpt2
 
     gpt2 is an autoregresive LLM which means generate one token at a time
     Here we pass in batches of prompts and get batches of completed prompts
-
     """
 
     model_name = "gpt2"
@@ -107,8 +106,10 @@ if __name__=="__main__":
     max_token = 10
 
     model, tokenizer = initialize(model_name)
+    model, tokenizer = set_padding(model, tokenizer)
+
     start = time.time()
     result = batch_generate(model, tokenizer, prompts, max_token)
+    print(f'time taken: {time.time() - start}')
 
     print (result)
-    print(f'time taken: {time.time() - start}')
