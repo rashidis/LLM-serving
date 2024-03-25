@@ -2,49 +2,52 @@
 
 ## Overview
 
-Welcome to the AI/ML Project Template Repository! This repository is designed to serve as an initial structured template for AI and machine learning projects. Whether you're a beginner or an experienced practitioner, this template provides a solid starting point for organizing your project files, documentation, and workflows.
+Welcome to the LLM serving repository! This repository is ispired by the course [Efficiently Serving LLMs](https://learn.deeplearning.ai/courses/efficiently-serving-llms) from DeepLearning.AI for an efficient LLM serving using transformers and pytorch.
 
 ## Features
 
-- **Well-Organized Structure**: The repository comes with a predefined directory structure to keep your project organized and easily navigable.
-- **Documentation**: Includes a README file to provide an overview of the project and guide users on how to use and contribute to the repository.
-- **License**: Provides a license file outlining the terms of use for the project.
-- **Contribution Guidelines**: Offers guidelines for contributing to the project, ensuring a collaborative and inclusive environment.
-- **Dependencies**: Lists required dependencies and instructions for installation.
+- **various implimentations**: The code for several different versions of LLM serving is implimented so they can be chosen and used based on prefrences and capacity.
+- **Well documented&**: The code base is well commented and documented with tests provided.
+- **KV cashing**: A code based understading of KV cashing and how it can be helpful with efficiency is provided
+- **Batching**:  
 
 ## Getting Started
 
-To get started with your AI/ML project using this template repository, follow these steps:
+To get started with this project using the repository, follow these steps:
 
-1. **Use this template to create a new repository**: Click on the green button `Use this template` and then `create new repository`. Fill in the repository name with `<your repo name>` and description. Check if you want the repository to be Public or Private. Click on `Create Repositry` button. 
-2. **Clone the Repository**: Clone the created repository to your local machine using Git.
+1. **Clone the Repository**: Clone the created repository to your local machine using Git.
 
    ```bash
    git clone https://github.com/your-username/<your repo name>.git
-3. **Navigate to the Project Directory**: Enter the project directory in your terminal or command prompt.
-4. **Install Dependencies**: Create the conda environment with dependencies installed:
+2. **Navigate to the Project Directory**: Enter the project directory in your terminal or command prompt.
+3. **Install Dependencies**: Create the conda environment with dependencies installed:
 
    ```bash
    conda env create -f environment.yml
-5. **Activate the conda environment**:
+4. **Activate the conda environment**:
 
    ```bash
    conda activate income-prediction-env
-6. **Start Building**: Begin building your AI/ML project by modifying or adding files as needed.
-7. **Documentation**: Update the README and documentation to reflect your project's specifics, including usage instructions and contribution guidelines.
-8. **Test Your Project**: Test your project to ensure everything is working as expected.
-9. **Contribute**: If you've made improvements or additions to the template, consider contributing back to the community by submitting a pull request.
+5. **Run code**: cd to the src folder and use python to run code
+
+   ```bash
+   cd src
+   python *.py
+6. **Contribute**: If you've made improvements or additions to the template, consider contributing back to the community by submitting a pull request.
 
 ## Directory Structure
 
 The repository is organized as follows:
 
-- **`data/`:** Contains the dataset used for training and evaluation.
-- **`models/`:** Directory for storing trained models.
-- **`notebooks/`:** Jupyter notebooks detailing the data exploration, preprocessing, and model training processes.
-- **`src/`:** Python scripts for modularized code, including data preprocessing, feature engineering, and model training.
-- **`tests/`:** Stores the test files such as data integration tests, model integration tests, responsible AI tests, 
-- **`results/`:** Stores the results of the predictive models.
+- **`data/`:** 
+- **`models/`:** Directory for storing a local version of the trained models.
+- **`notebooks/`:** 
+- **`src/`:** Python scripts for modularized code, including data preprocessing, feature engineering, and model training.</br>
+   |__ `gpt2_chat_completion.py` : Using gpt2 and kv cashing for efficient next token generation and chat completion. </br>
+   |__ `gpt2_chat_batching.py` : Using gpt2 and batching for high throughput and low latency next token generation and chat completion.
+
+- **`tests/`:**  
+- **`results/`:** 
 - **`README.md`:** Project overview and usage
 - **`LICENSE`:** License file
 ## Contribution Guidelines
