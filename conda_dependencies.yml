@@ -1,9 +1,8 @@
-name: temp-env
+name: llm-env
 channels:
   - defaults
 dependencies:
   - python=3.9
   - pip
-  - pandas==2.1.4
-  - matplotlib==3.8.2
-  - scikit-learn==1.3.2
+  - transformers==4.39.1
+  - torch==2.2.1
