@@ -18,7 +18,7 @@ To get started with this project using the repository, follow these steps:
 1. **Clone the Repository**: Clone the created repository to your local machine using Git.
 
    ```bash
-   git clone https://github.com/your-username/<your repo name>.git
+   git clone https://github.com/rashidis/LLM-serving.git
 2. **Navigate to the Project Directory**: Enter the project directory in your terminal or command prompt.
 3. **Install Dependencies**: Create the conda environment with dependencies installed:
 
