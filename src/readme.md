@@ -40,8 +40,22 @@ However, we strongly recommand to go through the provided file to get a better g
 
 
 ### gpt2_chat_batching.py
+This code snipt is intended for LLM inference of a bacth of prompts. 
+When processing batches of sequences with varying lengths, padding tokens are often added to ensure that all sequences within a batch have the same length. These padding tokens are typically assigned a special token ID, and are used to maintain uniformity in the input dimensions.
+```
+    tokenizer.pad_token = tokenizer.eos_token
+    tokenizer.padding_side = "left"  # default is right padding
+```
 
+The padding tokens get the attention mask of 1 as a result of the tokenizer output. Further the position IDs need to be adjusted to account for the padding tokens. So, by setting the position ID of padding tokens to 1, the code ensures that they are considered in the positional encoding but do not interfere with the actual token positions in the sequence. This approach helps the transformer model to properly attend to the relevant tokens while disregarding the padding tokens during inference.
+```
+    inputs = tokenizer(prompt, padding=True, return_tensors='pt')
+    position_ids = inputs["attention_mask"].long().cumsum(-1) - 1 # cumsum on last dim
+    # To give position id 1 to pads, ones their attention mask is 0
+    position_ids.masked_fill_(inputs["attention_mask"] == 0, 1) 
+```
+
+Furthermore, the same process as in `gpt2_chat_completion.py` is taken for batching.
 
 # Source
 This implementation is inspired by the course [Efficiently Serving LLMs](https://learn.deeplearning.ai/courses/efficiently-serving-llms) from DeepLearning.AI.
-
