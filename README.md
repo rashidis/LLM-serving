@@ -9,7 +9,7 @@ Welcome to the LLM serving repository! This repository is ispired by the course 
 - **various implimentations**: The code for several different versions of LLM serving is implimented so they can be chosen and used based on prefrences and capacity.
 - **Well documented&**: The code base is well commented and documented with tests provided.
 - **KV cashing**: A code based understading of KV cashing and how it can be helpful with efficiency is provided
-- **Batching**:  
+- **Batching**:  Batching offers the advantage of boosting throughput, defined as the number of prompts generated per second. Yet, in scenarios where low latency is crucial, there's a preference to swiftly produce results for each input request. 
 
 ## Getting Started
 

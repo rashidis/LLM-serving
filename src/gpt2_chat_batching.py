@@ -27,7 +27,7 @@ def initialize(model_name="gpt2"):
     model = AutoModelForCausalLM.from_pretrained(model_name).to(device)
     return model, tokenizer
 
-def gen_next_token(model, inputs):
+def gen_next_token_batch(model, inputs):
     """Given the tokenizer, model and prompt generates the next token
     
     :param model: (LLM class) gpt2 model object
@@ -80,7 +80,7 @@ def batch_generate(model, tokenizer, prompts, max_token):
 
     next_tokens = []
     for _ in range(max_token):
-        next_token_ids, past_key_values = gen_next_token(model, inputs)
+        next_token_ids, past_key_values = gen_next_token_batch(model, inputs)
 
         # append the token id as well as the attention mask to previous inputs
         inputs = {

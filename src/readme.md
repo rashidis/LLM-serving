@@ -57,5 +57,17 @@ The padding tokens get the attention mask of 1 as a result of the tokenizer outp
 
 Furthermore, the same process as in `gpt2_chat_completion.py` is taken for batching.
 
+The given code can also be done through the built in methods of AutoModelForCausalLM and AutoTokenizer as follows:
+```
+inputs = tokenizer(input_texts, return_tensors="pt", padding=True, truncation=True)
+with torch.no_grad():
+    outputs = model.generate(**inputs, max_length=50)  # Change max_length as needed
+generated_texts = [tokenizer.decode(output, skip_special_tokens=True) for output in outputs]
+```
+
+Batching offers the advantage of boosting throughput, defined as the number of prompts generated per second. Yet, in scenarios where low latency is crucial, there's a preference to swiftly produce results for each input request. To ensure both high throughput and minimized latency, the subsequent module is supplied.
+
+
+
 # Source
 This implementation is inspired by the course [Efficiently Serving LLMs](https://learn.deeplearning.ai/courses/efficiently-serving-llms) from DeepLearning.AI.
