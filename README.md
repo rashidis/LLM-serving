@@ -10,6 +10,8 @@ Welcome to the LLM serving repository! This repository is ispired by the course 
 - **Well documented&**: The code base is well commented and documented with tests provided.
 - **KV cashing**: A code based understading of KV cashing and how it can be helpful with efficiency is provided
 - **Batching**:  Batching offers the advantage of boosting throughput, defined as the number of prompts generated per second. Yet, in scenarios where low latency is crucial, there's a preference to swiftly produce results for each input request. 
+_ **Continues Batching**:To ensure both high throughput and minimized latency, the subsequent module is supplied. In this method, each token generation is treated as a separate independant opration. It works well with Auto-regressive method as they generate one token at a time.
+
 
 ## Getting Started
 
@@ -45,6 +47,8 @@ The repository is organized as follows:
 - **`src/`:** Python scripts for modularized code, including data preprocessing, feature engineering, and model training.</br>
    |__ `gpt2_chat_completion.py` : Using gpt2 and kv cashing for efficient next token generation and chat completion. </br>
    |__ `gpt2_chat_batching.py` : Using gpt2 and batching for high throughput and low latency next token generation and chat completion.
+   |__ `gpt2_continues_batching.py`: Using gpt2 and continues batching to ensure both high throughput and minimized latency, the subsequent module is supplied.
+
 
 - **`tests/`:**  
 - **`results/`:** 
