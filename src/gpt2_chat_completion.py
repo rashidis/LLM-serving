@@ -4,7 +4,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
 def gen_next_token(model, inputs):
-    """ Given the tokenizer, model and prompt generates the next token
+    """ Given the tokenizer, model and single prompt generates the next token
     
     :param model: (LLM class) gpt2 model object
     :param input: (dict) dictionary of input_ids:tensor and attention_mask:tensor

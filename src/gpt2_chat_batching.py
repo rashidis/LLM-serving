@@ -17,7 +17,7 @@ def set_padding(model, tokenizer):
     model.config.pad_token_id = model.config.eos_token_id
     return model, tokenizer
 
-def initialize(model_name="gpt2"):
+def initi_model(model_name="gpt2"):
     """initializes the model and tokenizer given model name
 
     :param model_name: (string)
@@ -65,7 +65,7 @@ def calc_position_ids(attention_mask):
     return position_ids
 
 def batch_generate(model, tokenizer, prompts, max_token):
-    """Given max token number and a prompt, complete the given sentence.
+    """Given max token number and a batch of prompts, complete the given sentence.
 
     :param model: LLM model
     :param tokenize: Tokenizer
@@ -99,17 +99,19 @@ if __name__=="__main__":
 
     gpt2 is an autoregresive LLM which means generate one token at a time
     Here we pass in batches of prompts and get batches of completed prompts
+    The problem with this method is it's high latency, if a batch is not filled quickly
+    each batch of batch size n needs to wiat for n requests and then generate results
     """
 
     model_name = "gpt2"
-    prompts = ["A dog jumped over", "here comes the", "She is such a nice"]
+    batch = ["A dog jumped over", "here comes the", "She is such a nice"]
     max_token = 10
 
-    model, tokenizer = initialize(model_name)
+    model, tokenizer = initi_model(model_name)
     model, tokenizer = set_padding(model, tokenizer)
 
     start = time.time()
-    result = batch_generate(model, tokenizer, prompts, max_token)
+    result = batch_generate(model, tokenizer, batch, max_token)
     print(f'time taken: {time.time() - start}')
 
     print (result)
